@@ -28,7 +28,6 @@ except ImportError:
     try:
         import spidev
         from .RPi import GPIO as rpiGPIO
-        pi5 = True
     except ImportError:
         pass
     except RuntimeError as e:
