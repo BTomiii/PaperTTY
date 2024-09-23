@@ -25,7 +25,14 @@ try:
     import spidev
     import RPi.GPIO as rpiGPIO
 except ImportError:
-    pass
+    try:
+        import spidev
+        from .RPi import GPIO as rpiGPIO
+        pi5 = True
+    except ImportError:
+        pass
+    except RuntimeError as e:
+        print(str(e))
 except RuntimeError as e:
     print(str(e))
 
@@ -78,7 +85,10 @@ class SpiDev:
 
     def setNoCs(self, value):
         if not self.gpiozero:
-            self.spi.no_cs = value
+            try:
+                self.spi.no_cs = value
+            except:
+                pass
 
 class GPIO:
 
